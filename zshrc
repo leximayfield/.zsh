@@ -52,7 +52,7 @@ if [[ $? == 0 ]]; then
 	alias ls="ls --color=auto"
 else
 	# Darwin/BSD
-	type gdirclors > /dev/null
+	type gdircolors > /dev/null
 	if [[ $? == 0 ]]; then
 		# GNU Coreutils in BSD
 		eval "$(gdircolors -b)"
