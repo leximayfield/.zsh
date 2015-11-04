@@ -3,13 +3,21 @@ stty stop undef
 stty start undef
 
 # Keybinds (because we can't trust terminfo)
-bindkey "^[OH"  beginning-of-line
-bindkey "^[[H"  beginning-of-line
-bindkey "^[[1~" beginning-of-line
-bindkey "^[OF"  end-of-line
-bindkey "^[[F"  end-of-line
-bindkey "^[[4~" end-of-line
-bindkey "^[[3~" delete-char
+
+# Home
+bindkey "^[OH"   beginning-of-line
+bindkey "^[[H"   beginning-of-line
+bindkey "^[[1~"  beginning-of-line
+# Alt + Left Arrow
+bindkey "^[^[[D" beginning-of-line
+# End
+bindkey "^[OF"   end-of-line
+bindkey "^[[F"   end-of-line
+bindkey "^[[4~"  end-of-line
+# Alt + Right Arrow
+bindkey "^[^[[C" end-of-line
+# Delete
+bindkey "^[[3~"  delete-char
 
 # Colors
 autoload -Uz colors && colors
@@ -21,8 +29,8 @@ setopt hist_no_store
 setopt inc_append_history
 setopt share_history
 
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=~/.history
 
 # Completion
@@ -82,4 +90,4 @@ fi
 export LESS="FRSX"
 
 # Path
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$PATH"
