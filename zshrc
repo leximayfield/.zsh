@@ -1,3 +1,6 @@
+# Path
+export PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH"
+
 # Disable flow-control keys
 stty stop undef
 stty start undef
@@ -34,10 +37,11 @@ SAVEHIST=10000
 HISTFILE=~/.history
 
 # Completion
-export FPATH="/usr/local/share/zsh-completions:$FPATH"
+setopt extended_glob
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-ip true
+zstyle ":completion:*:commands" rehash 1
 
 autoload -Uz compinit && compinit
 
@@ -57,17 +61,18 @@ type dircolors > /dev/null
 if [[ $? == 0 ]]; then
 	# GNU Coreutils
 	eval "$(dircolors -b)"
-	alias ls="ls --color=auto"
+	alias ls="ls --color=auto --human-readable"
 else
 	# Darwin/BSD
 	type gdircolors > /dev/null
 	if [[ $? == 0 ]]; then
 		# GNU Coreutils in BSD
 		eval "$(gdircolors -b)"
-		alias ls="gls --color=auto"
+		alias ls="gls --color=auto --human-readable"
+	else
+		# BSD
+		alias ls="ls -Gh"
 	fi
-	# BSD
-	export CLICOLOR="1"
 fi
 
 # GNU coreutils on BSD
@@ -86,8 +91,8 @@ if [[ $? == 0 ]]; then
 	alias gzip=pigz
 fi
 
+# Other aliases
+alias sssh='ssh -o "UserKnownHostsFile /dev/null"'
+
 # Default less functionality
 export LESS="FRSX"
-
-# Path
-export PATH="$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$PATH"
