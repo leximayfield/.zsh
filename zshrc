@@ -1,6 +1,9 @@
 # Path
 export PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 
+# Force emacs keybinds, otherwise VISUAL=vim will sometimes force vi keybinds
+bindkey -e
+
 # Disable flow-control keys
 stty stop undef
 stty start undef
@@ -26,6 +29,7 @@ bindkey "^[[3~"  delete-char
 autoload -Uz colors && colors
 
 # History
+setopt glob_complete
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_no_store
@@ -61,14 +65,14 @@ type dircolors > /dev/null
 if [[ $? == 0 ]]; then
 	# GNU Coreutils
 	eval "$(dircolors -b)"
-	alias ls="ls --color=auto --human-readable"
+	alias ls="ls --color=auto --si"
 else
 	# Darwin/BSD
 	type gdircolors > /dev/null
 	if [[ $? == 0 ]]; then
 		# GNU Coreutils in BSD
 		eval "$(gdircolors -b)"
-		alias ls="gls --color=auto --human-readable"
+		alias ls="gls --color=auto --si"
 	else
 		# BSD
 		alias ls="ls -Gh"
@@ -93,6 +97,10 @@ fi
 
 # Other aliases
 alias sssh='ssh -o "UserKnownHostsFile /dev/null"'
+alias sscp='scp -o "UserKnownHostsFile /dev/null"'
 
 # Default less functionality
 export LESS="FRSX"
+
+# Default editor
+export VISUAL="vim"
