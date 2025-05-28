@@ -11,19 +11,21 @@ stty start undef
 # Keybinds (because we can't trust terminfo)
 
 # Home
-bindkey "^[OH"   beginning-of-line
-bindkey "^[[H"   beginning-of-line
-bindkey "^[[1~"  beginning-of-line
+bindkey "^[OH"    beginning-of-line
+bindkey "^[[H"    beginning-of-line
+bindkey "^[[1~"   beginning-of-line
 # Alt + Left Arrow
-bindkey "^[^[[D" beginning-of-line
+bindkey "^[[1;3C" beginning-of-line
+bindkey "^[^[[D"  beginning-of-line
 # End
-bindkey "^[OF"   end-of-line
-bindkey "^[[F"   end-of-line
-bindkey "^[[4~"  end-of-line
+bindkey "^[OF"    end-of-line
+bindkey "^[[F"    end-of-line
+bindkey "^[[4~"   end-of-line
 # Alt + Right Arrow
-bindkey "^[^[[C" end-of-line
+bindkey "^[^[[C"  end-of-line
+bindkey "^[[1;3D" end-of-line
 # Delete
-bindkey "^[[3~"  delete-char
+bindkey "^[[3~"   delete-char
 
 # Colors
 autoload -Uz colors && colors
@@ -49,11 +51,8 @@ zstyle ":completion:*:commands" rehash 1
 
 autoload -Uz compinit && compinit
 
-# Titlebar and tab title
-HOSTNAME="$(hostname -s)"
-
 precmd() {
-	TITLE="$USER@$HOSTNAME:${PWD/#$HOME/~}"
+	TITLE="$USER@$HOST:${PWD/#$HOME/~}"
 	echo -ne "\e]0;${TITLE}\a"
 }
 
@@ -103,4 +102,4 @@ alias sscp='scp -o "UserKnownHostsFile /dev/null"'
 export LESS="FRSX"
 
 # Default editor
-export VISUAL="vim"
+export VISUAL="nvim"
