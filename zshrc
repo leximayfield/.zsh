@@ -103,3 +103,8 @@ export LESS="FRSX"
 
 # Default editor
 export VISUAL="nvim"
+
+type keychain > /dev/null
+if [[ $? == 0 ]]; then
+	eval "$(keychain --eval id_rsa)"
+fi
